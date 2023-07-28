@@ -24,12 +24,11 @@ database.connect();
 app.use(express.json());
 app.use(cors());
 
-app.use(
-	cors({
-		origin:"https://port-foliowebapp-git-main-surwaseonkar1512.vercel.app",
-		credentials:true,
-	})
-)
+app.use(cors({
+  origin: "https://port-foliowebapp-git-main-surwaseonkar1512.vercel.app",
+  credentials: true,
+}));
+
 
 
 //routes
@@ -39,15 +38,16 @@ const Project = require('./modal/Project'); // Import the Project model
 
 // Fetch all projects
 const data = async (req, res) => {
-	try {
-	  const projects = await Project.findProject.find().sort({ _id: -1 }).exec();
-	  console.log('Fetched projects:', projects);
-	  return res.status(200).json(projects);
-	} catch (error) {
-	  console.error('Error fetching projects:', error);
-	  return res.status(500).json({ error: 'Failed to fetch projects' });
-	}
-  };
+  try {
+    const projects = await Project.find().sort({ _id: -1 }).exec();
+    console.log('Fetched projects:', projects);
+    return res.status(200).json(projects);
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+    return res.status(500).json({ error: 'Failed to fetch projects' });
+  }
+};
+
   
 
 console.log(data)
