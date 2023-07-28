@@ -11,48 +11,27 @@ dotenv.config();
 
 const PORT = process.env.PORT || 4000;
 
-//database connect
+// Apply CORS middleware first
+app.use(
+	cors({
+		origin: "https://port-foliowebapp-git-main-surwaseonkar1512.vercel.app",
+		credentials: true,
+	})
+);
+
+// Next, add the file upload middleware
 app.use(
 	fileUpload({
-		useTempFiles:true,
-		
+		useTempFiles: true,
 	})
-)
+);
+
+// Continue with other middlewares
 cloudinaryConnect();
 database.connect();
-//middlewares
 app.use(express.json());
-app.use(cors());
 
-app.use(cors({
-  origin: "https://port-foliowebapp-git-main-surwaseonkar1512.vercel.app",
-  credentials: true,
-}));
-
-
-
-//routes
-// Add this to your index.js file
-
-const Project = require('./modal/Project'); // Import the Project model
-
-// Fetch all projects
-const data = async (req, res) => {
-  try {
-    const projects = await Project.find().sort({ _id: -1 }).exec();
-    console.log('Fetched projects:', projects);
-    return res.status(200).json(projects);
-  } catch (error) {
-    console.error('Error fetching projects:', error);
-    return res.status(500).json({ error: 'Failed to fetch projects' });
-  }
-};
-
-  
-
-console.log(data)
-
-
+// Add your routes after the middleware definitions
 app.use("/api/v1/reach", contactUsRoute);
 app.use("/api/v1/projects", projects);
 
@@ -64,9 +43,7 @@ app.get('/allprojects', async (req, res) => {
 	} catch (err) {
 	  res.status(500).json({ error: 'Failed to fetch projects' });
 	}
-  });
-  
-//def route
+});
 
 app.get("/", (req, res) => {
 	return res.json({
@@ -77,5 +54,4 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
 	console.log(`App is running at ${PORT}`)
-})
-
+});
