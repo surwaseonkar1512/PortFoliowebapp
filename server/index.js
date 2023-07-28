@@ -26,7 +26,7 @@ app.use(cors());
 
 app.use(
 	cors({
-		origin:"https://port-foliowebapp-git-main-surwaseonkar1512.vercel.app/",
+		origin:"https://port-foliowebapp-git-main-surwaseonkar1512.vercel.app",
 		credentials:true,
 	})
 )
