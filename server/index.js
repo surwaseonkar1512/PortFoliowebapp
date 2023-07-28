@@ -26,7 +26,7 @@ app.use(cors());
 
 app.use(
 	cors({
-		origin:"http://localhost:3000",
+		origin:"https://port-foliowebapp.vercel.app/",
 		credentials:true,
 	})
 )
